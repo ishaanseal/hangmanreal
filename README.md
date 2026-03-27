@@ -1,4 +1,4 @@
-# Rope & Resolve
+# Letterfall
 
 A polished static Hangman game built for easy sharing. It includes:
 

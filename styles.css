@@ -62,8 +62,11 @@ select {
 
 .app-shell {
   position: relative;
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
-  padding: clamp(18px, 3vw, 34px);
+  gap: 16px;
+  padding: clamp(14px, 2vw, 24px);
 }
 
 .ambient {
@@ -130,23 +133,23 @@ select {
 }
 
 .hero-card {
-  padding: clamp(24px, 3vw, 34px);
+  padding: clamp(18px, 2vw, 24px);
   display: flex;
-  align-items: end;
+  align-items: center;
   justify-content: space-between;
-  gap: 26px;
-  margin-bottom: 22px;
+  gap: 18px;
+  margin-bottom: 0;
 }
 
 .hero-copy {
-  max-width: 760px;
+  max-width: 680px;
 }
 
 .eyebrow {
-  margin: 0 0 10px;
+  margin: 0 0 8px;
   letter-spacing: 0.24em;
   text-transform: uppercase;
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   color: var(--accent-gold);
 }
 
@@ -161,24 +164,16 @@ select {
 }
 
 .hero-card h1 {
-  font-size: clamp(2.4rem, 6vw, 4.6rem);
+  font-size: clamp(2.2rem, 4.6vw, 3.8rem);
   line-height: 0.94;
-}
-
-.hero-text {
-  max-width: 62ch;
-  margin: 14px 0 0;
-  color: var(--text-dim);
-  font-size: clamp(1rem, 2vw, 1.12rem);
-  line-height: 1.6;
 }
 
 .hero-badges {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;
-  gap: 12px;
-  max-width: 480px;
+  gap: 10px;
+  max-width: 430px;
 }
 
 .pill,
@@ -195,16 +190,16 @@ select {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 11px 14px;
+  padding: 9px 13px;
   border-radius: 999px;
   color: var(--text-dim);
-  font-size: 0.9rem;
+  font-size: 0.84rem;
   white-space: nowrap;
 }
 
 .pill strong {
   color: var(--text-main);
-  font-size: 1rem;
+  font-size: 0.98rem;
 }
 
 .pill.accent {
@@ -215,14 +210,19 @@ select {
 .playground {
   display: grid;
   grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) minmax(280px, 0.82fr);
-  gap: 22px;
-  align-items: start;
+  gap: 18px;
+  align-items: stretch;
+  flex: 1;
+  min-height: 0;
 }
 
 .gallows-panel,
 .puzzle-panel,
 .stats-panel {
-  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  padding: 18px;
 }
 
 .gallows-panel {
@@ -246,7 +246,7 @@ select {
 }
 
 .panel-head h2 {
-  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-size: clamp(1.25rem, 2.3vw, 1.7rem);
 }
 
 .pill-row {
@@ -260,9 +260,9 @@ select {
   position: relative;
   display: grid;
   align-items: center;
-  min-height: 430px;
-  margin-top: 18px;
-  padding: 24px;
+  min-height: 340px;
+  margin-top: 14px;
+  padding: 18px;
   border-radius: 26px;
   border: 1px solid rgba(255, 255, 255, 0.08);
   background:
@@ -271,6 +271,7 @@ select {
     rgba(8, 15, 24, 0.46);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
   isolation: isolate;
+  flex: 1;
 }
 
 .gallows-stage::after {
@@ -293,7 +294,7 @@ select {
 .hangman-svg {
   position: relative;
   z-index: 1;
-  width: min(100%, 430px);
+  width: min(100%, 330px);
   margin: 0 auto;
   display: block;
 }
@@ -333,13 +334,13 @@ select {
 
 .status-banner {
   position: absolute;
-  right: 18px;
-  bottom: 18px;
-  left: 18px;
+  right: 14px;
+  bottom: 14px;
+  left: 14px;
   z-index: 2;
   display: grid;
   gap: 12px;
-  padding: 18px 20px;
+  padding: 14px 16px;
   border-radius: 22px;
   border: 1px solid var(--line-strong);
   background: rgba(6, 12, 18, 0.86);
@@ -355,7 +356,7 @@ select {
 }
 
 .status-banner h3 {
-  font-size: 1.6rem;
+  font-size: 1.35rem;
 }
 
 .status-banner p {
@@ -387,8 +388,8 @@ select {
 
 .button-primary,
 .button-secondary {
-  min-height: 48px;
-  padding: 0 18px;
+  min-height: 42px;
+  padding: 0 15px;
   font-weight: 700;
 }
 
@@ -419,15 +420,15 @@ select {
 
 .stat-chip-row {
   display: grid;
-  gap: 12px;
+  gap: 10px;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  margin-top: 18px;
+  margin-top: 14px;
 }
 
 .stat-chip,
 .score-card,
 .record-card {
-  padding: 14px 16px;
+  padding: 12px 14px;
   border-radius: 18px;
 }
 
@@ -452,8 +453,8 @@ select {
 .score-value,
 .record-value {
   display: block;
-  margin-top: 6px;
-  font-size: clamp(1.05rem, 2vw, 1.5rem);
+  margin-top: 4px;
+  font-size: clamp(1rem, 1.7vw, 1.35rem);
 }
 
 .missed-list {
@@ -462,13 +463,13 @@ select {
 
 .score-grid {
   display: grid;
-  gap: 12px;
+  gap: 10px;
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .word-card {
-  margin-top: 18px;
-  padding: 22px;
+  margin-top: 14px;
+  padding: 16px 18px;
   border-radius: 26px;
   background:
     radial-gradient(circle at top, rgba(127, 224, 194, 0.12), transparent 44%),
@@ -529,23 +530,23 @@ select {
 .meta-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px 18px;
-  margin-top: 16px;
-  font-size: 0.96rem;
+  gap: 10px 16px;
+  margin-top: 12px;
+  font-size: 0.9rem;
 }
 
 .keyboard-panel {
-  margin-top: 18px;
+  margin-top: 14px;
 }
 
 .keyboard {
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
-  gap: 10px;
+  gap: 8px;
 }
 
 .key-button {
-  min-height: 52px;
+  min-height: 44px;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -570,21 +571,21 @@ select {
 
 .stats-panel {
   display: grid;
-  gap: 18px;
+  gap: 14px;
 }
 
 .records-block + .records-block {
-  margin-top: 2px;
+  margin-top: 0;
 }
 
 .record-grid {
   display: grid;
-  gap: 12px;
+  gap: 10px;
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .feature-card {
-  padding: 18px;
+  padding: 16px;
   border-radius: 24px;
   background:
     radial-gradient(circle at top right, rgba(255, 209, 106, 0.14), transparent 30%),
@@ -593,59 +594,62 @@ select {
 }
 
 .feature-card h3 {
-  font-size: 1.55rem;
+  font-size: 1.3rem;
 }
 
 .feature-card p {
-  margin: 10px 0 0;
+  margin: 8px 0 0;
   color: var(--text-dim);
-  line-height: 1.55;
+  line-height: 1.45;
+  font-size: 0.94rem;
 }
 
 .feature-metrics {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 16px;
+  gap: 8px;
+  margin-top: 12px;
 }
 
 .feature-metrics span {
   display: inline-flex;
   align-items: center;
-  padding: 9px 12px;
+  padding: 8px 11px;
   border-radius: 999px;
   color: var(--text-main);
-  font-size: 0.92rem;
+  font-size: 0.88rem;
 }
 
 .hint-text {
-  font-size: 0.86rem;
+  font-size: 0.8rem;
 }
 
 .history-list {
   list-style: none;
-  margin: 14px 0 0;
+  margin: 10px 0 0;
   padding: 0;
   display: grid;
-  gap: 10px;
+  gap: 8px;
+  max-height: 86px;
+  overflow: hidden;
 }
 
 .history-item {
   display: grid;
-  gap: 5px;
-  padding: 14px 16px;
+  gap: 4px;
+  padding: 10px 12px;
   border-radius: 18px;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .history-item strong {
-  font-size: 1rem;
+  font-size: 0.94rem;
 }
 
 .history-item span {
   color: var(--text-dim);
-  font-size: 0.92rem;
+  font-size: 0.84rem;
 }
 
 .history-item.is-win strong {
@@ -680,6 +684,16 @@ select {
 
   .records-block {
     min-width: 0;
+  }
+}
+
+@media (min-width: 1100px) {
+  body {
+    overflow: hidden;
+  }
+
+  .app-shell {
+    height: 100vh;
   }
 }
 
