@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rope &amp; Resolve</title>
+  <meta
+    name="description"
+    content="A polished Hangman challenge with animated figure reveals, a giant English word bank, score runs, and persistent records."
+  >
+  <meta name="theme-color" content="#0d1724">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Space+Grotesk:wght@400;500;700&display=swap"
+    rel="stylesheet"
+  >
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <div class="ambient ambient-one"></div>
+    <div class="ambient ambient-two"></div>
+    <div class="ambient ambient-three"></div>
+
+    <header class="panel hero-card">
+      <div class="hero-copy">
+        <p class="eyebrow">Animated Word Challenge</p>
+        <h1>Rope &amp; Resolve</h1>
+        <p class="hero-text">
+          A modern Hangman run with a massive English lexicon, fluid motion, a full
+          figure reveal, and personal records that keep getting sharper.
+        </p>
+      </div>
+
+      <div class="hero-badges">
+        <span class="pill">
+          <strong id="bankSize">Loading...</strong>
+          word bank
+        </span>
+        <span class="pill">
+          <strong id="bestScoreValue">0</strong>
+          max score
+        </span>
+        <span class="pill">
+          <strong id="bestStreakValue">0</strong>
+          best streak
+        </span>
+      </div>
+    </header>
+
+    <main class="playground">
+      <section class="panel gallows-panel">
+        <div class="panel-head">
+          <div>
+            <p class="eyebrow">Current Round</p>
+            <h2 id="statusTitle">Loading word bank...</h2>
+          </div>
+
+          <div class="pill-row">
+            <span class="pill accent" id="difficultyBadge">Adaptive</span>
+            <span class="pill" id="roundBadge">Round 1</span>
+          </div>
+        </div>
+
+        <div class="gallows-stage" id="gallowsStage">
+          <svg
+            class="hangman-svg"
+            viewBox="0 0 320 340"
+            role="img"
+            aria-labelledby="hangmanTitle hangmanDescription"
+          >
+            <title id="hangmanTitle">Animated hangman figure</title>
+            <desc id="hangmanDescription">
+              A scaffold with the hangman figure gradually drawn as wrong guesses accumulate.
+            </desc>
+
+            <g class="scaffold">
+              <line x1="58" y1="310" x2="250" y2="310"></line>
+              <line x1="94" y1="306" x2="94" y2="26"></line>
+              <line x1="92" y1="26" x2="204" y2="26"></line>
+              <line x1="204" y1="26" x2="204" y2="58"></line>
+              <line x1="94" y1="72" x2="144" y2="26"></line>
+            </g>
+
+            <circle id="part-head" class="body-part" cx="204" cy="88" r="28" pathLength="100"></circle>
+            <line id="part-body" class="body-part" x1="204" y1="116" x2="204" y2="196" pathLength="100"></line>
+            <line id="part-arm-left" class="body-part" x1="204" y1="140" x2="162" y2="174" pathLength="100"></line>
+            <line id="part-arm-right" class="body-part" x1="204" y1="140" x2="246" y2="174" pathLength="100"></line>
+            <line id="part-leg-left" class="body-part" x1="204" y1="196" x2="168" y2="250" pathLength="100"></line>
+            <line id="part-leg-right" class="body-part" x1="204" y1="196" x2="240" y2="250" pathLength="100"></line>
+          </svg>
+
+          <div class="status-banner" id="statusBanner">
+            <p class="eyebrow" id="bannerEyebrow">Please wait</p>
+            <h3 id="bannerTitle">Building the challenge...</h3>
+            <p id="bannerText">
+              Loading the word bank and warming up the gallows.
+            </p>
+
+            <div class="banner-actions">
+              <button type="button" class="button-primary" id="primaryAction" disabled>
+                Loading...
+              </button>
+              <button type="button" class="button-secondary" id="secondaryAction" hidden>
+                Restart run
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="stat-chip-row">
+          <article class="stat-chip">
+            <span class="stat-label">Mistakes</span>
+            <strong class="stat-value" id="mistakesValue">0 / 6</strong>
+          </article>
+          <article class="stat-chip">
+            <span class="stat-label">Missed</span>
+            <strong class="stat-value missed-list" id="missedLetters">None</strong>
+          </article>
+          <article class="stat-chip">
+            <span class="stat-label">Unique letters</span>
+            <strong class="stat-value" id="uniqueLettersValue">0</strong>
+          </article>
+        </div>
+      </section>
+
+      <section class="panel puzzle-panel">
+        <div class="score-grid">
+          <article class="score-card">
+            <span class="score-label">Run score</span>
+            <strong class="score-value" id="scoreValue">0</strong>
+          </article>
+          <article class="score-card">
+            <span class="score-label">Streak</span>
+            <strong class="score-value" id="streakValue">0</strong>
+          </article>
+          <article class="score-card">
+            <span class="score-label">Round bonus</span>
+            <strong class="score-value" id="roundPointsValue">0</strong>
+          </article>
+        </div>
+
+        <div class="word-card">
+          <div class="word-slots" id="wordSlots" aria-live="polite"></div>
+
+          <div class="meta-row">
+            <span id="wordLengthValue">Length 0</span>
+            <span id="guessCountValue">Guesses 0</span>
+            <span id="accuracyValue">Accuracy 100%</span>
+          </div>
+        </div>
+
+        <div class="keyboard-panel">
+          <div class="keyboard" id="keyboard" aria-label="Letter keyboard"></div>
+        </div>
+
+        <div class="control-row">
+          <button type="button" class="button-secondary" id="nextWordButton" disabled>
+            Next word
+          </button>
+          <button type="button" class="button-secondary" id="restartButton">
+            Restart run
+          </button>
+        </div>
+      </section>
+
+      <aside class="panel stats-panel">
+        <section class="records-block">
+          <p class="eyebrow">Personal Bests</p>
+
+          <div class="record-grid">
+            <article class="record-card">
+              <span class="record-label">Wins</span>
+              <strong class="record-value" id="winsValue">0</strong>
+            </article>
+            <article class="record-card">
+              <span class="record-label">Losses</span>
+              <strong class="record-value" id="lossesValue">0</strong>
+            </article>
+            <article class="record-card">
+              <span class="record-label">Win rate</span>
+              <strong class="record-value" id="winRateValue">0%</strong>
+            </article>
+            <article class="record-card">
+              <span class="record-label">Perfect rounds</span>
+              <strong class="record-value" id="perfectRoundsValue">0</strong>
+            </article>
+          </div>
+        </section>
+
+        <section class="records-block">
+          <p class="eyebrow">Signature Solve</p>
+
+          <div class="feature-card">
+            <h3 id="signatureWord">No record yet</h3>
+            <p id="signatureDescription">
+              Crack a difficult word in very few guesses to own this spot.
+            </p>
+
+            <div class="feature-metrics">
+              <span id="signatureDifficulty">Difficulty --</span>
+              <span id="signatureGuesses">Guesses --</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="records-block">
+          <div class="session-head">
+            <p class="eyebrow">Session Feed</p>
+            <span class="hint-text">Keyboard: A-Z, Enter, R</span>
+          </div>
+
+          <ul class="history-list" id="historyList"></ul>
+        </section>
+      </aside>
+    </main>
+
+    <div class="visually-hidden" id="announcer" aria-live="polite" aria-atomic="true"></div>
+  </div>
+
+  <script type="module" src="game.js"></script>
+</body>
+</html>
